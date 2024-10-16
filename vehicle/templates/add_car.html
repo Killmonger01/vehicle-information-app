@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Добавить автомобиль{% endblock %}
+
+{% block content %}
+    <h1>Добавить новый автомобиль</h1>
+    
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Добавить</button>
+    </form>
+    
+    <a href="{% url 'car:index' %}" class="btn btn-secondary mt-3">Назад к списку автомобилей</a>
+{% endblock %}

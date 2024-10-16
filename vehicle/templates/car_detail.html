@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ car.make }} {{ car.model }} ({{ car.year }})</h1>
+    <p>{{ car.description }}</p>
+    <p><strong>Владелец:</strong> {{ car.owner.username }}</p>
+
+    <hr>
+
+    <h3>Комментарии:</h3>
+    <div class="mb-4">
+        {% for comment in comments %}
+            <div class="border p-2 mb-2">
+                <p><strong>{{ comment.author }}</strong> говорит:</p>
+                <p>{{ comment.content }}</p>
+            </div>
+        {% empty %}
+            <p class="text-muted">Комментариев пока нет.</p>
+        {% endfor %}
+    </div>
+
+    <hr>
+
+    <h4>Добавить комментарий</h4>
+<form method="POST" class="d-inline-block">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary mt-2">Добавить комментарий</button>
+</form>
+
+<div class="btn-group mt-2" role="group">
+    <a href="{% url 'car:edit_car' car.id %}" class="btn btn-warning">Редактировать</a>
+    <form method="POST" action="{% url 'car:delete_car' car.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Удалить</button>
+    </form>
+</div>
+
+{% endblock %}
