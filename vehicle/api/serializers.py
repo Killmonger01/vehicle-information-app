@@ -1,28 +1,26 @@
 from rest_framework import serializers
 from car.models import Car, Comment
 
-# Сериализатор для автомобиля
+
 class CarSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         model = Car
         fields = ['id', 'make', 'model', 'year', 'description', 'created_at', 'updated_at', 'owner']
-    
+
     def create(self, validated_data):
-        # Добавляем текущего пользователя как владельца
         validated_data['owner'] = self.context['request'].user
         return super().create(validated_data)
 
 
-# Сериализатор для комментария
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
 
     class Meta:
         model = Comment
         fields = ['id', 'content', 'created_at', 'author']
-    
+ 
     def get_queryset(self):
         car_id = self.kwargs['car_id']
         return Comment.objects.filter(car_id=car_id)

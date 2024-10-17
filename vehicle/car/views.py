@@ -2,6 +2,8 @@ from .models import Car
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import CommentForm, CarForm
+
+
 def index(request):
     cars = Car.objects.all()
     return render(request, 'index.html', {'cars': cars})
@@ -10,7 +12,7 @@ def index(request):
 @login_required
 def car_detail(request, car_id):
     car = get_object_or_404(Car, id=car_id)
-    
+
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -24,6 +26,7 @@ def car_detail(request, car_id):
     comments = car.comments.all()
     return render(request, 'car_detail.html', {'car': car, 'form': form, 'comments': comments, 'is_owner': is_owner})
 
+
 @login_required
 def add_car(request):
     if request.method == 'POST':
@@ -34,7 +37,7 @@ def add_car(request):
             car.save()
             return redirect('car:index')
     form = CarForm()
-    
+
     return render(request, 'add_car.html', {'form': form})
 
 
@@ -64,6 +67,3 @@ def delete_car(request, car_id):
         car.delete()
         return redirect('car:index')
     return redirect('car:index')
-
-
-

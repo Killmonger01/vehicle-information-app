@@ -3,4 +3,3 @@ from .models import Car, Comment
 
 admin.site.register(Car)
 admin.site.register(Comment)
-# Register your models here.
