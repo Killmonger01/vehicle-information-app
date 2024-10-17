@@ -2,7 +2,7 @@ from rest_framework import generics, permissions
 from car.models import Car, Comment
 from .serializers import CarSerializer, CommentSerializer
 
-# Представление для списка и создания автомобилей
+
 class CarListCreateView(generics.ListCreateAPIView):
     queryset = Car.objects.all()
     serializer_class = CarSerializer
@@ -11,14 +11,12 @@ class CarListCreateView(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
-# Представление для детального просмотра, обновления и удаления автомобиля
 class CarDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Car.objects.all()
     serializer_class = CarSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-# Представление для списка комментариев и создания нового комментария
 class CommentListCreateView(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
