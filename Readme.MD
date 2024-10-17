@@ -26,4 +26,4 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 # прежде чем создавать машины, оставлять комееты и т.д. за логинтесь через админку. Если нужно сменить акаунт разлгинивайтесь и логинтесь через админку
-
+# что бы использовать api получите access token по этому http://127.0.0.1:8000/api/token/{"username": "your_username",  "password": "your_password"}
