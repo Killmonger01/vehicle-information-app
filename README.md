@@ -1,4 +1,4 @@
-# vehicle-information-app
+## vehicle-information-app
 # Как запустить локально
 - создайте и активируйте вертуальное окружение
 ```
@@ -19,4 +19,8 @@ cd vehicle
 ```
 python manage.py makemigrations
 python manage.py migrate
+```
+- создайте супер пользователя
+```
+python manage.py createsuperuser
 ```
